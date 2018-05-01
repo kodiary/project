@@ -188,7 +188,7 @@
             
           </li>
           <li class="nav-item">
-            <a href="{{ route('list_category') }}" class="nav-link">
+            <a href="{{ route('categories.index') }}" class="nav-link">
               <i class="nav-icon fa fa-th"></i>
               <p>
                 Category
