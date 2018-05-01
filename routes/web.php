@@ -20,4 +20,4 @@ Route::get('/admin', 'HomeController@index')->name('home');
 Route::get('/testhome', 'HomeController@test')->name('testhome');
 Route::get('/test', 'TestController@index')->name('test');
 Route::get('/about', 'TestController@about')->name('about');
-Route::resource('categories', 'CategoriesController');
+Route::resource('/admin/categories', 'Admin\CategoriesController', ['as'=>'admin']);
