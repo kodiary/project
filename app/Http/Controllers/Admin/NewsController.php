@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Category;
+use App\News;
 
-class CategoriesController extends Controller
+class NewsController extends Controller
 {
     public function __construct()
     {
@@ -20,9 +21,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $arr['categories'] = Category::all();
-        return view('admin.categories.index')->with($arr);
-
+        $arr['news'] = News::all();
+        return view('admin.news.index')->with($arr);
     }
 
     /**
@@ -32,7 +32,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        return view('admin.news.create');
     }
 
     /**
@@ -41,11 +41,13 @@ class CategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Category $category)
+    public function store(Request $request,News $news)
     {
-        $category->title = $request->title;
-        $category->save();
-        return redirect()->route('admin.categories.index');
+        $news->title = $request->title;
+        $news->author = $request->author;
+        $news->description = $request->description;
+        $news->save();
+        return redirect()->route('admin.news.index');
     }
 
     /**
@@ -65,11 +67,9 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        $arr['category'] = $category;
-        return view('admin.categories.edit')->with($arr);
-
+        //
     }
 
     /**
@@ -79,11 +79,9 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        $category->title = $request->title;
-        $category->save();
-        return redirect()->route('admin.categories.index');
+        //
     }
 
     /**
@@ -94,7 +92,6 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        Category::destroy($id);
-        return redirect()->route('admin.categories.index');
+        //
     }
 }

@@ -21,3 +21,4 @@ Route::get('/testhome', 'HomeController@test')->name('testhome');
 Route::get('/test', 'TestController@index')->name('test');
 Route::get('/about', 'TestController@about')->name('about');
 Route::resource('/admin/categories', 'Admin\CategoriesController', ['as'=>'admin']);
+Route::resource('/admin/news', 'Admin\NewsController', ['as'=>'admin']);

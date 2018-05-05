@@ -178,8 +178,15 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+          <?php
+            $segment = Request::segment(2);
+          ?>     
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="{{ route('home') }}" class="nav-link 
+              @if(!$segment)
+              active
+              @endif
+              ">
               <i class="nav-icon fa fa-dashboard"></i>
               <p>
                 Dashboard
@@ -188,7 +195,10 @@
             
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.categories.index') }}" class="nav-link">
+            <a href="{{ route('admin.categories.index') }}" class="nav-link 
+              @if($segment=='categories')
+              active
+              @endif">
               <i class="nav-icon fa fa-th"></i>
               <p>
                 Category
@@ -196,7 +206,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.news.index') }}" class="nav-link 
+              @if($segment=='news')
+              active
+              @endif">
               <i class="nav-icon fa fa-pie-chart"></i>
               <p>
                 News
