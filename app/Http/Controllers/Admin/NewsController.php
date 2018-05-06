@@ -43,6 +43,16 @@ class NewsController extends Controller
      */
     public function store(Request $request,News $news)
     {
+        if($request->image->getClientOriginalName()){
+            $ext =  $request->image->getClientOriginalExtension();
+            $file = date('YmdHis').rand(1,99999).'.'.$ext;
+            $request->image->storeAs('public/news',$file);
+        }
+        else
+        {
+            $file = '';
+        }
+        $news->image = $file;
         $news->title = $request->title;
         $news->author = $request->author;
         $news->description = $request->description;
@@ -67,9 +77,10 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(News $news)
     {
-        //
+        $arr['news'] = $news;
+        return view('admin.news.edit')->with($arr);
     }
 
     /**
@@ -79,9 +90,26 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, News $news)
     {
-        //
+        if(isset($request->image) && $request->image->getClientOriginalName()){
+            $ext =  $request->image->getClientOriginalExtension();
+            $file = date('YmdHis').rand(1,99999).'.'.$ext;
+            $request->image->storeAs('public/news',$file);
+        }
+        else
+        {
+            if(!$news->image)
+                $file = '';
+            else
+                $file = $news->image;
+        }
+        $news->image = $file;
+        $news->title = $request->title;
+        $news->author = $request->author;
+        $news->description = $request->description;
+        $news->save();
+        return redirect()->route('admin.news.index');
     }
 
     /**
@@ -90,8 +118,9 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(News $news)
     {
-        //
+        $news->delete();
+        return redirect()->route('admin.news.index');
     }
 }
