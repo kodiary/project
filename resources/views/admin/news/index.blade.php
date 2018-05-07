@@ -26,6 +26,7 @@
   		<tr>
   			<th>ID</th>
   			<th>Title</th>
+        <th>Category</th>
   			<th>Action</th>
   		</tr>
       @if(count($news))
@@ -33,6 +34,7 @@
   			<tr>
   				<td>{{ $n->id }}</td>
   				<td>{{ $n->title }}</td>
+          <td>{{ $n->category->title }}</td>
   				<td>
             <a href="{{ route('admin.news.edit',$n->id) }}" class="btn btn-info">Edit</a> 
             <a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="btn btn-danger">Delete</a>

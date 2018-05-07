@@ -32,7 +32,8 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('admin.news.create');
+        $arr['categories'] = Category::all();
+        return view('admin.news.create')->with($arr);
     }
 
     /**
@@ -52,6 +53,7 @@ class NewsController extends Controller
         {
             $file = '';
         }
+        $news->category_id = $request->category_id;
         $news->image = $file;
         $news->title = $request->title;
         $news->author = $request->author;
@@ -80,6 +82,7 @@ class NewsController extends Controller
     public function edit(News $news)
     {
         $arr['news'] = $news;
+        $arr['categories'] = Category::all();
         return view('admin.news.edit')->with($arr);
     }
 
@@ -104,6 +107,7 @@ class NewsController extends Controller
             else
                 $file = $news->image;
         }
+        $news->category_id = $request->category_id;
         $news->image = $file;
         $news->title = $request->title;
         $news->author = $request->author;
