@@ -16,9 +16,17 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('/admin', 'HomeController@index')->name('home');
+
 Route::get('/testhome', 'HomeController@test')->name('testhome');
 Route::get('/test', 'TestController@index')->name('test');
 Route::get('/about', 'TestController@about')->name('about');
-Route::resource('/admin/categories', 'Admin\CategoriesController', ['as'=>'admin']);
-Route::resource('/admin/news', 'Admin\NewsController', ['as'=>'admin']);
+
+
+Route::namespace('Admin')->prefix('admin')->as('admin.')->middleware('auth')->group(function(){
+
+	Route::get('/', 'HomeController@index')->name('home');
+	Route::resource('/categories', 'CategoriesController');
+	Route::resource('/news', 'NewsController');
+
+});
+
