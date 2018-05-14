@@ -49,6 +49,7 @@
       <tr><td colspan="3">No News Found</td></tr>
       @endif
   	</table>
+    {{ $news->render() }}
   </div>
 </section>	
 
